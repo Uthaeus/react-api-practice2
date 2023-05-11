@@ -1,7 +1,7 @@
 @import 'bootstrap';
 @import 'bootstrap-icons';
 
-body {
-    background-color: #121212;
-    color: antiquewhite;
-}
+@import 'root-layout';
+@import 'post-layout';
+@import 'meetup-layout';
+
