@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-function MeetupForm() {
+function MeetupForm({ meetup }) {
     const { register, handleSubmit, reset, error } = useForm();
+
+    useEffect(() => {
+        if (meetup) {
+            reset(meetup);
+        }
+    }, [meetup, reset]);
 
     function buildForm(data) {
         const formData = new FormData();
