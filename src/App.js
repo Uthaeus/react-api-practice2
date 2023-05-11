@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./pages/root";
-import PostLayout from "./pages/posts/post-layout";
-import MeetupLayout from "./pages/meetups/meetup-layout";
+import PostLayout from "./components/posts/post-layout";
+import MeetupLayout from "./components/meetups/meetup-layout";
 import ErrorPage from "./pages/error";
 import HomePage from "./pages/home";
 import Posts from "./pages/posts";
