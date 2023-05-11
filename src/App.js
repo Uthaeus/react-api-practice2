@@ -9,6 +9,8 @@ import Posts from "./pages/posts";
 import Meetups from "./pages/meetups";
 import NewMeetup from "./components/meetups/new-meetup";
 import EditMeetup from "./components/meetups/edit-meetup";
+import NewPost from "./components/posts/new-post";
+import EditPost from "./components/posts/edit-post";
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Posts />
+      },
+      {
+        path: "/posts/new",
+        element: <NewPost />
+      },
+      {
+        path: "/posts/:id/edit",
+        element: <EditPost />
       }
     ]
   },
