@@ -1,12 +1,16 @@
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function MainNavigation() {
     const navigate = useNavigate();
 
-    const logoutHandler = () => {
+    function logoutHandler() {
+        console.log('logout handler');
+
         fetch('http://localhost:4000/users/sign_out', {
             method: 'DELETE',
-            withCredentials: true,
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
 
         })
             .then(response => {

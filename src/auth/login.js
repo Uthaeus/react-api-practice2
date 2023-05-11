@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 function Login() {
     const { register, handleSubmit, errors } = useForm();
+    const navigate = useNavigate();
+
     const submitHandler = data => {
         console.log(data);
         let dataToSend = {
@@ -13,11 +16,22 @@ function Login() {
 
         fetch('http://localhost:4000/users/sign_in', {
             method: 'POST',
+            body: JSON.stringify(dataToSend),
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: dataToSend
+            }
         })
+            .then(response => {
+                if (response.ok) {
+                    console.log('login response:', response);
+                    return response.json();
+                }
+            })
+            .then(data => {
+                console.log('login data:', data);
+                navigate('/');
+            })
+            .catch(error => console.log('login handler error:', error));
     };
     
     return (

@@ -24,12 +24,18 @@ function Signup() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: dataToSend
+            body: JSON.stringify(dataToSend)
         })
             .then(response => {
                 if (response.ok) {
-                    navigate('/login');
+                    console.log('signup response:', response);
+                    return response.json();
                 }
+            })
+            .then(data => {
+                console.log('signup data:', data);
+                localStorage.setItem('token', data.jti);
+                navigate('/');
             })
             .catch(error => console.log('signup handler error:', error));
     };
