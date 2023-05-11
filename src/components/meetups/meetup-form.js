@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 function MeetupForm({ meetup }) {
     const { register, handleSubmit, reset, error } = useForm();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (meetup) {
@@ -32,7 +34,24 @@ function MeetupForm({ meetup }) {
 
     const submitHandler = (data) => {
         let dataToSend = buildForm(data);
+        console.log(data);
         console.log(dataToSend);
+
+        fetch("http://localhost:4000/meetups", {
+            method: "POST",
+            body: dataToSend
+        })
+            .then((response) => {
+                if (response.ok) {
+                    navigate("/meetups");
+                    return response.json();
+                } else {
+                    throw new Error("Something went wrong");
+                }
+            })
+            .catch((error) => {
+                console.log('meetup form error', error);
+            });
     };
 
     return (

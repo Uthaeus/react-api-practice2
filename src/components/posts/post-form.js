@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 function PostForm({ post }) {
     const { register, handleSubmit, reset, error } = useForm();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (post) {
@@ -10,9 +12,40 @@ function PostForm({ post }) {
         }
     }, [post, reset]);
 
+    function buildForm(data) {
+        const formData = new FormData();
+
+        formData.append("post[title]", data.title);
+        formData.append("post[body]", data.body);
+
+        if (data.image[0]) {
+            formData.append("post[image]", data.image[0]);
+        }
+
+        return formData;
+    }
+
     const submitHandler = (data) => {
         console.log(data);
-    };
+        let dataToSend = buildForm(data);
+        console.log(dataToSend);
+
+        fetch("http://localhost:4000/posts", {
+            method: "POST",
+            body: dataToSend
+        })
+            .then((response) => {
+                if (response.ok) {
+                    navigate("/posts");
+                    return response.json();
+                } else {
+                    throw new Error("Something went wrong");
+                }
+            })
+            .catch((error) => {
+                console.log('post form error', error);
+            });
+    }
 
     return (
         <div className="post-form-container">
