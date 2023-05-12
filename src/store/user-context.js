@@ -3,20 +3,20 @@ import { createContext, useState } from 'react';
 export const UserContext = createContext({
     user: null,
     isAuthenticated: false,
-    login: (userData) => {},
-    logout: () => {}
+    userLogin: (userData) => {},
+    userLogout: () => {}
 });
 
 function UserContextProvider({ children}) {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    function login(userData) {
+    function userLogin(userData) {
         setUser(userData);
         setIsAuthenticated(true);
     }
 
-    function logout() {
+    function userLogout() {
         setUser(null);
         setIsAuthenticated(false);
     }
@@ -24,8 +24,8 @@ function UserContextProvider({ children}) {
     const value = {
         user,
         isAuthenticated,
-        login,
-        logout
+        userLogin,
+        userLogout
     };
 
     return (

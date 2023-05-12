@@ -1,12 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useContext } from "react";
-
-import UserContext from "../store/user-context";
 
 function Login() {
     const { register, handleSubmit, errors } = useForm();
-    const userCtx = useContext(UserContext);
     const navigate = useNavigate();
 
 
@@ -32,14 +28,9 @@ function Login() {
                     console.log('successful login');
                     let token = response.headers.get('Authorization').split(' ')[1];
                     localStorage.setItem('token', token);
-                    //navigate('/');
+                    navigate('/');
                     return response.json();
                 }
-            })
-            .then(data => {
-                console.log('login user data:', data.status.data);
-                userCtx.login(data.status.data);
-                navigate('/');
             })
             .catch(error => console.log('login handler error:', error));
     };
