@@ -28,14 +28,12 @@ function Signup() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('signup response:', response);
+                    console.log('successful signup');
+                    let token = response.headers.get('Authorization').split(' ')[1];
+                    localStorage.setItem('token', token);
+                    navigate('/');
                     return response.json();
                 }
-            })
-            .then(data => {
-                console.log('signup data:', data);
-                localStorage.setItem('token', data.jti);
-                navigate('/');
             })
             .catch(error => console.log('signup handler error:', error));
     };

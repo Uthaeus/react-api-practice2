@@ -5,6 +5,26 @@ function Login() {
     const { register, handleSubmit, errors } = useForm();
     const navigate = useNavigate();
 
+    // q: will my submitHandler function work?
+    // a: no, it won't work because we are not sending the token back to the client
+    //    we are only sending the token to the client when the user signs up
+    //    we are not sending the token to the client when the user logs in
+
+    // q: how do we get the token back to the client?
+    // a: we need to send the token back to the client in the response to the login request
+    // q: how do we do that?
+    // a: we need to modify the backend code to send the token back to the client in the response to the login request
+    // q: how do we do that?
+    // a: we need to modify the backend code to send the token back to the client in the response to the login request
+    // q: how would a rails developer do that?
+    // a: a rails developer would modify the sessions controller to send the token back to the client in the response to the login request
+    // q: how do we do that?
+    // a: we need to modify the sessions controller to send the token back to the client in the response to the login request
+    // q: how do we do that?
+    // a: we need to modify the sessions controller to send the token back to the client in the response to the login request
+    // q: 
+
+
     const submitHandler = data => {
         console.log(data);
         let dataToSend = {
@@ -13,6 +33,7 @@ function Login() {
                 password: data.password
             }
         };
+
 
         fetch('http://localhost:4000/users/sign_in', {
             method: 'POST',
@@ -23,13 +44,12 @@ function Login() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('login response:', response);
+                    console.log('successful login');
+                    let token = response.headers.get('Authorization').split(' ')[1];
+                    localStorage.setItem('token', token);
+                    navigate('/');
                     return response.json();
                 }
-            })
-            .then(data => {
-                console.log('login data:', data);
-                navigate('/');
             })
             .catch(error => console.log('login handler error:', error));
     };
