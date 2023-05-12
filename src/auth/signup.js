@@ -15,6 +15,7 @@ function Signup() {
         let dataToSend = {
             user: {
                 email: data.email,
+                username: data.username,
                 password: data.password
             }
         };
@@ -37,7 +38,7 @@ function Signup() {
             })
             .then(data => {
                 console.log(data);
-                //navigate('/');
+                navigate('/');
             })
             .catch(error => console.log('signup handler error:', error));
     };
@@ -50,6 +51,12 @@ function Signup() {
                     <label htmlFor="email">Email</label>
                     <input type='email' className="form-control" {...register('email', { required: true })} />
                     {errors?.email && <span className="text-danger">This field is required</span>}
+                </div>
+
+                <div className="form-group mb-3">
+                    <label htmlFor="username">Username</label>
+                    <input type='text' className="form-control" {...register('username', { required: true })} />
+                    {errors?.username && <span className="text-danger">This field is required</span>}
                 </div>
 
                 <div className="form-group mb-3">

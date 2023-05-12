@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { UserContext } from "../../store/user-context";
+
 function MainNavigation() {
+    const userCtx = useContext(UserContext);
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -27,6 +30,7 @@ function MainNavigation() {
                     console.log('successful logout');
                     localStorage.removeItem('token');
                     setIsAuthenticated(false);
+                    userCtx.logout();
                 }
             })
             .catch(error => console.log('logout handler error:', error));

@@ -1,28 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+
+import UserContext from "../store/user-context";
 
 function Login() {
     const { register, handleSubmit, errors } = useForm();
+    const userCtx = useContext(UserContext);
     const navigate = useNavigate();
-
-    // q: will my submitHandler function work?
-    // a: no, it won't work because we are not sending the token back to the client
-    //    we are only sending the token to the client when the user signs up
-    //    we are not sending the token to the client when the user logs in
-
-    // q: how do we get the token back to the client?
-    // a: we need to send the token back to the client in the response to the login request
-    // q: how do we do that?
-    // a: we need to modify the backend code to send the token back to the client in the response to the login request
-    // q: how do we do that?
-    // a: we need to modify the backend code to send the token back to the client in the response to the login request
-    // q: how would a rails developer do that?
-    // a: a rails developer would modify the sessions controller to send the token back to the client in the response to the login request
-    // q: how do we do that?
-    // a: we need to modify the sessions controller to send the token back to the client in the response to the login request
-    // q: how do we do that?
-    // a: we need to modify the sessions controller to send the token back to the client in the response to the login request
-    // q: 
 
 
     const submitHandler = data => {
@@ -53,7 +38,8 @@ function Login() {
             })
             .then(data => {
                 console.log('login user data:', data.status.data);
-                //navigate('/');
+                userCtx.login(data.status.data);
+                navigate('/');
             })
             .catch(error => console.log('login handler error:', error));
     };

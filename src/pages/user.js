@@ -28,7 +28,7 @@ function UserPage() {
         <div>
             <h1>User Page</h1>
             <br />
-            {isLoading ? <p>Loading...</p> : <p>{user?.email}</p>}
+            {isLoading ? <p>Loading...</p> : <p>{user?.username}</p>}
         </div>
     );
 }
