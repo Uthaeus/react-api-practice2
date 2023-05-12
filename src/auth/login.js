@@ -47,9 +47,13 @@ function Login() {
                     console.log('successful login');
                     let token = response.headers.get('Authorization').split(' ')[1];
                     localStorage.setItem('token', token);
-                    navigate('/');
+                    //navigate('/');
                     return response.json();
                 }
+            })
+            .then(data => {
+                console.log('login user data:', data.status.data);
+                //navigate('/');
             })
             .catch(error => console.log('login handler error:', error));
     };

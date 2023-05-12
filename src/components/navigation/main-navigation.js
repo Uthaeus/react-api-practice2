@@ -39,6 +39,7 @@ function MainNavigation() {
             </div>
             <div>
                 <NavLink to='/' end>Home</NavLink>
+                <NavLink to='/user'>User</NavLink>
                 <NavLink to='/posts'>Posts</NavLink>
                 <NavLink to='/meetups'>Meetups</NavLink>
             </div>

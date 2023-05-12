@@ -15,6 +15,7 @@ import PostDetail from "./components/posts/post-detail";
 import MeetupDetail from "./components/meetups/meetup-detail";
 import Signup from "./auth/signup";
 import Login from "./auth/login";
+import UserPage from "./pages/user";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: "/user",
+        element: <UserPage />
       },
       {
         path: "/signup",

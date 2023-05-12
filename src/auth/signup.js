@@ -31,9 +31,13 @@ function Signup() {
                     console.log('successful signup');
                     let token = response.headers.get('Authorization').split(' ')[1];
                     localStorage.setItem('token', token);
-                    navigate('/');
+                    //navigate('/');
                     return response.json();
                 }
+            })
+            .then(data => {
+                console.log(data);
+                //navigate('/');
             })
             .catch(error => console.log('signup handler error:', error));
     };
