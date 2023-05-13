@@ -1,4 +1,4 @@
-
+import { useEffect, useContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import RootLayout from "./pages/root";
@@ -17,6 +17,7 @@ import MeetupDetail from "./components/meetups/meetup-detail";
 import Signup from "./auth/signup";
 import Login from "./auth/login";
 import UserPage from "./pages/user";
+import { UserContext } from "./store/user-context";
 
 
 const router = createBrowserRouter([
@@ -92,6 +93,31 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const userCtx = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") && localStorage.getItem("token") !== undefined && !userCtx.user) {
+      fetch("http://localhost:4000/user_current", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((data) => {
+          userCtx.userLogin(data);
+        })
+        .catch((error) => {
+          console.log('app.js error', error);
+        });
+    }
+  }, []);
 
   return <RouterProvider router={router} />;
 }

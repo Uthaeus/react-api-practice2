@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+
+import { UserContext } from "../../store/user-context";
 
 function PostForm({ post }) {
     const { register, handleSubmit, reset, error } = useForm();
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         if (post) {
@@ -17,6 +20,7 @@ function PostForm({ post }) {
 
         formData.append("post[title]", data.title);
         formData.append("post[body]", data.body);
+        formData.append("post[user_id]", user.id);
 
         if (data.image[0]) {
             formData.append("post[image]", data.image[0]);

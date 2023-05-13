@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+
+import { UserContext } from "../../store/user-context";
 
 function MeetupForm({ meetup }) {
     const { register, handleSubmit, reset, error } = useForm();
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         if (meetup) {
@@ -20,6 +23,7 @@ function MeetupForm({ meetup }) {
         formData.append("meetup[time]", data.time);
         formData.append("meetup[date]", data.date);
         formData.append("meetup[description]", data.description);
+        formData.append("meetup[user_id]", user.id);
 
         if (data.main_image[0]) {
             formData.append("meetup[main_image]", data.main_image[0]);
